@@ -1,0 +1,38 @@
+Types of Violations
+
+We shall define an SEC violation as "the manipulative or deceptive practice in the sale of a security, investment, or contract".
+
+
+1. Misrepresentation or omission of important information
+	- brokers informing clients on bad "unduly" risks (***)
+	- brokers lie about expected future value of a stock
+	- taking advantage of the elderly (endless risk from an annuity)
+	- encouraging concentration of stock (rather than diversification!)
+
+2. Manipulation of the market prices of securities
+	- pooling profits or losses
+	- churning: placing buy and sell orders to stimulate market 
+	- stock bashing: lying
+	- pump and dump, runs, ramping, bear raids, spoofing
+
+3. Stealing customer funds or securities
+	- using customer's accounts to cover the short position of another client without 
+	  permission (***)
+
+4. Violating broker-dealer's responsibility to treat customers fairly
+	- cherry picking trades where the customer loses and the firm wins (***)
+
+5. Insider trading
+	- using nonpublic information to "beat the market"
+	- see (EFFICIENT MARKET HYPOTHESIS BY EUGENE FAMA)
+
+6. Selling unregistered securities 
+
+
+
+Consequences of Violations
+1. Civil action (non criminal litigation)
+2. Administrative action
+
+Investigative Process of the SEC
+{See references}

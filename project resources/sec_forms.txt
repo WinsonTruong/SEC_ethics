@@ -1,0 +1,32 @@
+Types of SEC forms that are available on Edgar 
+(https://www.sec.gov/oiea/Article/edgarguide.html)
+
+Financial/Operational Results
+	- 10-K (Annual)
+
+Shareholder Meetings
+	- PRE 14A and DEF 14A
+		-Preliminary and Definitive proxy statements (essentially meeting invites 
+		for shareholders to learn more about their publicly traded company)
+
+Executive Compensation
+	- 10-K
+	- 8-K
+
+Insider Transactions
+	- 3,4,5: initial, changes, and annual statement of company's equity securities
+
+Beneficial Ownership Interest
+	- description: people who hold >5% of a company's voting securities has to 
+	disclose their holdings
+
+Business Combinations
+	-description: merger and acquisitions 
+
+Public Offerings
+Securities-based crowdfunding
+Regulation A Offerings
+Foreign Private Issuers
+Mutual Funds and ETFs
+Exhibits
+	- 
