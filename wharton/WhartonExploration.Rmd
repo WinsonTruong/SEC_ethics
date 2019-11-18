@@ -1,0 +1,98 @@
+---
+title: "Exploring the Wharton Data"
+output: html_notebook
+---
+Objectives
+
+1.Proportion of men to women within firm
+2.Proportion of white to non-white
+3. Within race: we want to look at tenure (group_by industries)
+
+
+References:
+
+1. Metadata explanation: https://wrds-web.wharton.upenn.edu/wrds/ds/riskmetrics/rmdirectors/index.cfm?navId=245
+
+
+PART I: Setup, cleaning, and surface-level investigations
+```{r}
+library(dplyr)
+library(datasets)
+library(ggplot2)
+library(DataExplorer)
+```
+
+```{r}
+#Let's set the working directory and get the data
+setwd('/Users/winsontruong/Dropbox/SEC_ethics')
+getwd()
+
+wharton <-read.csv('wharton/select_data.csv')
+sp500 <- read.csv('s&p500/sp500.csv')
+```
+
+```{r Cleaning}
+#Renaming
+colnames(sp500)[colnames(sp500)=="Symbol"] <- "ticker"
+
+#Remove Unnecessary Columns
+sp500 <- select (sp500,-c(SEC.Filings,HQ.Location))
+
+#Merge
+data <- merge(wharton, sp500, by = "ticker")
+```
+
+```{r DataExplorer Tools}
+#Lets now explore this ungrouped, barely filtered data with DataExplorer
+introduce(data)
+plot_intro(data)
+```
+
+
+```{r}
+#Are we missing anything?
+plot_missing(data)
+```
+This tells me I want to be looking at the last 3 columns: "RT_ID", "Pcnt_Ctrl_VotingPower", "Year_of_termination" so that they don't mess up our data exploration. It seems as if the "Pcnt_Ctrl_VotingPower" is an incredibly sparse column and I'm doubtful of the reliability of the value when it says "NA". 
+
+```{r}
+#Lets remove the RT_ID from wharton and year_of_termination, then re-merge
+wharton <- select(wharton, -c(RT_ID, Year_of_termination))
+data <- merge(wharton, sp500, by = "ticker")
+plot_missing(data)
+```
+Unfortunately, it seems as if the votingpower variable has the most missing data. This is unfortunate because voting power may be a good variable to describe status. Let's drop the column for now and continue to our analysis grouped by industry.
+
+```{r}
+wharton <- select(wharton, -c(Pcnt_Ctrl_Votingpower))
+data <- merge(wharton, sp500, by = "ticker")
+plot_missing(data)
+```
+
+
+```{r}
+#Recoding the Female, OWNLESS1
+data <- data %>% 
+  mutate(female = ifelse(female == "Yes", 1, 0)) %>%
+  mutate(OWNLESS1 = ifelse(OWNLESS1 == "Yes", 1, 0))
+```
+
+```{r}
+create_report(data)
+```
+
+## II. Industry Analysis
+
+
+```{r}
+industry_freq <- as.data.frame(table(data$GIC.Sector))
+```
+
+```{r}
+#Lets compare the number of females CEO in each industry
+p < -ggplot(data, aes(x=, y=len)) +
+  geom_bar(stat="identity")
+p
+```
+
+
