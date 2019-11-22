@@ -1,0 +1,357 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Exploring the Wharton Data},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\providecommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Exploring the Wharton Data}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{}
+    \preauthor{}\postauthor{}
+    \date{}
+    \predate{}\postdate{}
+  
+
+\begin{document}
+\maketitle
+
+Objectives
+
+1.Proportion of men to women within firm 2.Proportion of white to
+non-white 3. Within race: we want to look at tenure (group\_by
+industries)
+
+References:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Metadata explanation:
+  \url{https://wrds-web.wharton.upenn.edu/wrds/ds/riskmetrics/rmdirectors/index.cfm?navId=245}
+\end{enumerate}
+
+PART I: Setup, cleaning, and surface-level investigations
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(dplyr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'dplyr' was built under R version 3.4.4
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'dplyr'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(datasets)}
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in as.POSIXlt.POSIXct(Sys.time()): unknown timezone 'zone/tz/2019c.
+## 1.0/zoneinfo/America/Los_Angeles'
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(DataExplorer)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'DataExplorer' was built under R version 3.4.4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(}\StringTok{"knitr"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Let's set the working directory and get the data}
+\KeywordTok{setwd}\NormalTok{(}\StringTok{'/Users/winsontruong/Dropbox/SEC_ethics'}\NormalTok{)}
+\KeywordTok{getwd}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "/Users/winsontruong/Dropbox/SEC_ethics"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{wharton <-}\KeywordTok{read.csv}\NormalTok{(}\StringTok{'wharton/select_data.csv'}\NormalTok{)}
+\NormalTok{sp500 <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{'s&p500/sp500.csv'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Renaming}
+\KeywordTok{colnames}\NormalTok{(sp500)[}\KeywordTok{colnames}\NormalTok{(sp500)}\OperatorTok{==}\StringTok{"Symbol"}\NormalTok{] <-}\StringTok{ "ticker"}
+
+\CommentTok{#Remove Unnecessary Columns}
+\NormalTok{sp500 <-}\StringTok{ }\KeywordTok{select}\NormalTok{ (sp500,}\OperatorTok{-}\KeywordTok{c}\NormalTok{(SEC.Filings,HQ.Location))}
+
+\CommentTok{#Merge}
+\NormalTok{data <-}\StringTok{ }\KeywordTok{merge}\NormalTok{(wharton, sp500, }\DataTypeTok{by =} \StringTok{"ticker"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Lets now explore this ungrouped, barely filtered data with DataExplorer}
+\KeywordTok{introduce}\NormalTok{(data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    rows columns discrete_columns continuous_columns all_missing_columns
+## 1 24967      27               18                  9                   0
+##   total_missing_values complete_rows total_observations memory_usage
+## 1                60539            65             674109      4031680
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot_intro}\NormalTok{(data)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{WhartonExploration_files/figure-latex/DataExplorer Tools-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Are we missing anything?}
+\KeywordTok{plot_missing}\NormalTok{(data)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{WhartonExploration_files/figure-latex/unnamed-chunk-3-1.pdf}
+This tells me I want to be looking at the last 3 columns: ``RT\_ID'',
+``Pcnt\_Ctrl\_VotingPower'', ``Year\_of\_termination'' so that they
+don't mess up our data exploration. It seems as if the
+``Pcnt\_Ctrl\_VotingPower'' is an incredibly sparse column and I'm
+doubtful of the reliability of the value when it says ``NA''.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Lets remove the RT_ID from wharton and year_of_termination, then re-merge}
+\NormalTok{wharton <-}\StringTok{ }\KeywordTok{select}\NormalTok{(wharton, }\OperatorTok{-}\KeywordTok{c}\NormalTok{(RT_ID, Year_of_termination))}
+\NormalTok{data <-}\StringTok{ }\KeywordTok{merge}\NormalTok{(wharton, sp500, }\DataTypeTok{by =} \StringTok{"ticker"}\NormalTok{)}
+\KeywordTok{plot_missing}\NormalTok{(data)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{WhartonExploration_files/figure-latex/unnamed-chunk-4-1.pdf}
+Unfortunately, it seems as if the votingpower variable has the most
+missing data. This is unfortunate because voting power may be a good
+variable to describe status. Let's drop the column for now and continue
+to our analysis grouped by industry.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{wharton <-}\StringTok{ }\KeywordTok{select}\NormalTok{(wharton, }\OperatorTok{-}\KeywordTok{c}\NormalTok{(Pcnt_Ctrl_Votingpower))}
+\NormalTok{data <-}\StringTok{ }\KeywordTok{merge}\NormalTok{(wharton, sp500, }\DataTypeTok{by =} \StringTok{"ticker"}\NormalTok{)}
+\KeywordTok{plot_missing}\NormalTok{(data)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{WhartonExploration_files/figure-latex/unnamed-chunk-5-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Recoding the Female, OWNLESS1}
+\NormalTok{data <-}\StringTok{ }\NormalTok{data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{female =} \KeywordTok{ifelse}\NormalTok{(female }\OperatorTok{==}\StringTok{ "Yes"}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{OWNLESS1 =} \KeywordTok{ifelse}\NormalTok{(OWNLESS1 }\OperatorTok{==}\StringTok{ "Yes"}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#create_report(data)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{ii.-industry-analysis}{%
+\subsection{II. Industry Analysis}\label{ii.-industry-analysis}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{industry_freq <-}\StringTok{ }\KeywordTok{as.data.frame}\NormalTok{(}\KeywordTok{table}\NormalTok{(data}\OperatorTok{$}\NormalTok{GIC.Sector))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Lets compare the number of females CEO in each industry}
+\NormalTok{female_count_df <-}\StringTok{ }\KeywordTok{aggregate}\NormalTok{(data}\OperatorTok{$}\NormalTok{female, }\DataTypeTok{by=}\KeywordTok{list}\NormalTok{(}\DataTypeTok{GIC.Sector=}\NormalTok{data}\OperatorTok{$}\NormalTok{GIC.Sector), }\DataTypeTok{FUN=}\NormalTok{sum)}
+
+\CommentTok{#Rename my columns to be more fitting }
+\KeywordTok{names}\NormalTok{(female_count_df)[}\KeywordTok{names}\NormalTok{(female_count_df) }\OperatorTok{==}\StringTok{ "x"}\NormalTok{] <-}\StringTok{ "num_females"}
+
+\KeywordTok{ggplot}\NormalTok{(female_count_df, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ GIC.Sector, }\DataTypeTok{y =}\NormalTok{ num_females)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_bar}\NormalTok{(}\DataTypeTok{stat=}\StringTok{"identity"}\NormalTok{, }\DataTypeTok{fill=}\StringTok{"steelblue"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_text}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{label=}\NormalTok{num_females), }\DataTypeTok{vjust=}\FloatTok{1.6}\NormalTok{, }\DataTypeTok{color=}\StringTok{"white"}\NormalTok{, }\DataTypeTok{size=}\FloatTok{3.5}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme_minimal}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Number of Females per industry"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{plot.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size =} \DecValTok{18}\NormalTok{, }\DataTypeTok{face =} \StringTok{"bold"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{WhartonExploration_files/figure-latex/unnamed-chunk-9-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Lets compare ethnicity in each industry}
+\NormalTok{ethnicity_count_df <-}\StringTok{ }\KeywordTok{as.data.frame}\NormalTok{(}\KeywordTok{table}\NormalTok{(data}\OperatorTok{$}\NormalTok{Ethnicity))}
+
+\CommentTok{#Rename my columns to be more fitting }
+\KeywordTok{names}\NormalTok{(ethnicity_count_df)[}\KeywordTok{names}\NormalTok{(ethnicity_count_df) }\OperatorTok{==}\StringTok{ "Var1"}\NormalTok{] <-}\StringTok{ "Ethnicity"}
+
+\KeywordTok{ggplot}\NormalTok{(ethnicity_count_df, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Ethnicity, }\DataTypeTok{y =}\NormalTok{ Freq)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_bar}\NormalTok{(}\DataTypeTok{stat=}\StringTok{"identity"}\NormalTok{, }\DataTypeTok{fill=}\StringTok{"green"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_text}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{label=}\NormalTok{Freq), }\DataTypeTok{vjust=}\FloatTok{1.6}\NormalTok{, }\DataTypeTok{color=}\StringTok{"white"}\NormalTok{, }\DataTypeTok{size=}\FloatTok{3.5}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme_minimal}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"CEOs by Race"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{plot.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size =} \DecValTok{18}\NormalTok{, }\DataTypeTok{face =} \StringTok{"bold"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{WhartonExploration_files/figure-latex/unnamed-chunk-10-1.pdf}
+
+
+\end{document}

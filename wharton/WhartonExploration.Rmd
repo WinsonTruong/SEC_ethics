@@ -1,6 +1,8 @@
 ---
 title: "Exploring the Wharton Data"
-output: html_notebook
+output:
+  pdf_document: default
+  html_notebook: default
 ---
 Objectives
 
@@ -20,6 +22,7 @@ library(dplyr)
 library(datasets)
 library(ggplot2)
 library(DataExplorer)
+library("knitr")
 ```
 
 ```{r}
@@ -78,7 +81,7 @@ data <- data %>%
 ```
 
 ```{r}
-create_report(data)
+#create_report(data)
 ```
 
 ## II. Industry Analysis
@@ -88,11 +91,40 @@ create_report(data)
 industry_freq <- as.data.frame(table(data$GIC.Sector))
 ```
 
-```{r}
+```{r  fig.height = 6, fig.width = 14}
 #Lets compare the number of females CEO in each industry
-p < -ggplot(data, aes(x=, y=len)) +
-  geom_bar(stat="identity")
-p
+female_count_df <- aggregate(data$female, by=list(GIC.Sector=data$GIC.Sector), FUN=sum)
+
+#Rename my columns to be more fitting 
+names(female_count_df)[names(female_count_df) == "x"] <- "num_females"
+
+ggplot(female_count_df, aes(x = GIC.Sector, y = num_females)) + 
+  geom_bar(stat="identity", fill="steelblue") +
+  geom_text(aes(label=num_females), vjust=1.6, color="white", size=3.5) +
+  theme_minimal() + 
+  ggtitle("Number of Females per industry") + 
+  theme(plot.title = element_text(size = 18, face = "bold"))
+
 ```
 
+```{r  fig.height = 6, fig.width = 18}
+#Lets compare ethnicity in each industry
+ethnicity_count_df <- as.data.frame(table(data$Ethnicity))
+
+#Rename my columns to be more fitting 
+names(ethnicity_count_df)[names(ethnicity_count_df) == "Var1"] <- "Ethnicity"
+
+ggplot(ethnicity_count_df, aes(x = Ethnicity, y = Freq)) + 
+  geom_bar(stat="identity", fill="green") +
+  geom_text(aes(label=Freq), vjust=1.6, color="white", size=3.5) +
+  theme_minimal() + 
+  ggtitle("CEOs by Race") + 
+  theme(plot.title = element_text(size = 18, face = "bold"))
+
+```
+
+
+```{r}
+
+```
 
