@@ -8,4 +8,4 @@ Questions:
 
 (2) What types of ethical violations are clearly unethical in the eyes of stakeholders?
 
-This project aims to see if there exists public information that can be properly wrangled and analyzed such that a relationship between biolation and corporate performance exists.
+This project aims to see if there exists public information that can be properly wrangled and analyzed such that a relationship between violation and corporate performance exists.
